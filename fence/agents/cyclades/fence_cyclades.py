@@ -23,7 +23,8 @@ BUILD_DATE="January, 2016"
 #END_VERSION_GENERATION
 
 def get_outlet_list(conn,options):
-    pass # TODO
+	conn.log_expect(options["--command-prompt"], int(options["--shell-timeout"]))
+
 
 def get_power_status(conn, options):
 	exp_result = 0
@@ -206,7 +207,7 @@ will block any necessary fencing actions."
 	##
 	## Operate the fencing device
 	####
-	conn = fence_login(options, re_login_string=r"Username:\s*")
+	conn = fence_login(options, re_login_string=r"(^$)|(Username:\s*)")
 
     result = fence_action(conn, options, set_power_status, get_power_status, get_outlet_list)
 
